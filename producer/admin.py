@@ -15,3 +15,11 @@ class MyAdminSite(admin.AdminSite):
 
 
 admin_site = MyAdminSite(name='management')
+
+
+class FunctionManageAdmin(admin.ModelAdmin):
+    fields = ('serial_number', 'function', 'name')
+    pass
+
+
+admin.site.register(FunctionMapping, FunctionManageAdmin)
