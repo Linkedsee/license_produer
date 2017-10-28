@@ -1,5 +1,5 @@
 """
-WSGI config for license_produer project.
+WSGI config for license_producer project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "license_produer.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "license_producer.settings")
 
 application = get_wsgi_application()
