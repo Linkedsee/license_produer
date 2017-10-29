@@ -20,6 +20,7 @@ class LicenseHistory(models.Model):
     function = models.CharField('授权模块', max_length=200)
     effective_time = models.CharField('有效期', max_length=200)
     kind = models.CharField('类型', max_length=200)
+    asset_num = models.IntegerField('授权数量')
     create_time = models.DateTimeField('创建时间', auto_now_add=True)
 
     class Meta:

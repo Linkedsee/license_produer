@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 from django.contrib import admin
 from .models import FunctionMapping, LicenseHistory
 import commands
@@ -28,19 +29,29 @@ class FunctionMappingAdmin(admin.ModelAdmin):
     def make_published(self, request, queryset):
         print request, queryset
         function_list = []
+        function_names = []
         for func in queryset:
             function_list.append(func.serial_number)
-        print function_list
-        self.message_user(request, u"请稍后")
+            function_names.append(func.name)
+        print function_list, function_names
+        self.message_user(request, u"请稍后，正在生成license，包含(%s)" % ','.join(function_names))
+
+        customer = '百度'
+        kind = 2
+        effective_time = 3
+        asset_num = random.randrange(0, 99999)
+        lh = LicenseHistory(customer=customer, kind=kind, effective_time=effective_time,
+                            function=','.join(function_names), asset_num=asset_num)
+        lh.save()
         pass
 
     make_published.short_description = u"选中上述模块生成license"
 
 
 class LicenseHistoryAdmin(admin.ModelAdmin):
-    list_display = ('customer', 'function', 'effective_time', 'kind', 'create_time')
-    ordering = ['create_time']
-    search_fields = ('customer','kind')
+    list_display = ('customer', 'function', 'asset_num', 'effective_time', 'kind', 'create_time')
+    ordering = ['create_time', 'asset_num']
+    search_fields = ('customer', 'kind')
     list_per_page = 10
 
     actions = ['make_published']
