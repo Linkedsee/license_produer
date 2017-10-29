@@ -20,7 +20,7 @@ from producer.admin import admin_site
 # admin.autodiscover()  # Django version < 1.8 ,need open
 urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),
-    # url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     # url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin_site.urls),
 ]

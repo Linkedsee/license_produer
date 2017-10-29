@@ -29,3 +29,7 @@ class LicenseHistory(models.Model):
 
     def __unicode__(self):  # __str__ on Python 3
         return self.customer
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return 'customer'

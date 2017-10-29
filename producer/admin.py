@@ -27,23 +27,22 @@ class FunctionMappingAdmin(admin.ModelAdmin):
     action_form = helpers.ActionForm
 
     def make_published(self, request, queryset):
-        print request, queryset
-        function_list = []
-        function_names = []
-        for func in queryset:
-            function_list.append(func.serial_number)
-            function_names.append(func.name)
-        print function_list, function_names
-        self.message_user(request, u"请稍后，正在生成license，包含(%s)" % ','.join(function_names))
+        if request.POST.get('post'):
+            function_list = []
+            function_names = []
+            for func in queryset:
+                function_list.append(func.serial_number)
+                function_names.append(func.name)
+            print function_list, function_names
+            self.message_user(request, u"请稍后，正在生成license，包含(%s)" % ','.join(function_names))
 
-        customer = '百度'
-        kind = 2
-        effective_time = 3
-        asset_num = random.randrange(0, 99999)
-        lh = LicenseHistory(customer=customer, kind=kind, effective_time=effective_time,
-                            function=','.join(function_names), asset_num=asset_num)
-        lh.save()
-        pass
+            customer = '百度'
+            kind = 2
+            effective_time = 3
+            asset_num = random.randrange(0, 99999)
+            lh = LicenseHistory(customer=customer, kind=kind, effective_time=effective_time,
+                                function=','.join(function_names), asset_num=asset_num)
+            lh.save()
 
     make_published.short_description = u"选中上述模块生成license"
 
