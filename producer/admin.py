@@ -17,9 +17,24 @@ class MyAdminSite(admin.AdminSite):
 admin_site = MyAdminSite(name='management')
 
 
-class FunctionManageAdmin(admin.ModelAdmin):
-    fields = ('serial_number', 'function', 'name')
-    pass
+class FunctionMappingAdmin(admin.ModelAdmin):
+    list_display = ('serial_number', 'function', 'name')
+    ordering = ['serial_number']
+    list_per_page = 10
+
+    actions = ['make_published']
+    action_form = helpers.ActionForm
+
+    def make_published(self, request, queryset):
+        print request, queryset
+        function_list = []
+        for func in queryset:
+            function_list.append(func.serial_number)
+        print function_list
+        self.message_user(request, u"请稍后")
+        pass
+
+    make_published.short_description = u"选中上述模块生成license"
 
 
-admin.site.register(FunctionMapping, FunctionManageAdmin)
+admin_site.register(FunctionMapping, FunctionMappingAdmin)
