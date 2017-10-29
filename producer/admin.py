@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from .models import FunctionMapping
+from .models import FunctionMapping, LicenseHistory
 import commands
 import os
 from django.template.response import TemplateResponse
@@ -37,4 +37,15 @@ class FunctionMappingAdmin(admin.ModelAdmin):
     make_published.short_description = u"选中上述模块生成license"
 
 
+class LicenseHistoryAdmin(admin.ModelAdmin):
+    list_display = ('customer', 'function', 'effective_time', 'kind', 'create_time')
+    ordering = ['create_time']
+    search_fields = ('customer','kind')
+    list_per_page = 10
+
+    actions = ['make_published']
+    action_form = helpers.ActionForm
+
+
 admin_site.register(FunctionMapping, FunctionMappingAdmin)
+admin_site.register(LicenseHistory, LicenseHistoryAdmin)

@@ -13,3 +13,18 @@ class FunctionMapping(models.Model):
 
     def __unicode__(self):  # __str__ on Python 3
         return self.name
+
+
+class LicenseHistory(models.Model):
+    customer = models.CharField('客户', max_length=200)
+    function = models.CharField('授权模块', max_length=200)
+    effective_time = models.CharField('有效期', max_length=200)
+    kind = models.CharField('类型', max_length=200)
+    create_time = models.DateTimeField('创建时间', auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = u'license 历史记录'
+        db_table = 'license_history'
+
+    def __unicode__(self):  # __str__ on Python 3
+        return self.customer
